@@ -1,5 +1,5 @@
 import React from 'react';
-import './ReservaCliente.css';
+//import './ReservaCliente.css';
 
 export const Reservas = () => {
     const [fecha, setFecha] = React.useState('');
