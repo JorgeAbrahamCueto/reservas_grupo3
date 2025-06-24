@@ -207,31 +207,88 @@ export const Reservas = () => {
                                                 : 'mesa-disponible';
 
                                             return (
-                                                <div className="col-2 mb-3" key={mesa.id}>
+                                                <div className="col-2 mb-3 d-flex justify-content-center" key={mesa.id}>
                                                     <button
-                                                        className={`btn w-100 ${estadoMesa}`}
+                                                        className={`mesa-icon-btn ${estadoMesa}`}
                                                         disabled={bloqueada || !fecha || !hora || advertencia}
                                                         onClick={() => handleSeleccionMesa(mesa.id)}
                                                         style={{
+                                                            width: 56,
+                                                            height: 56,
+                                                            borderRadius: '50%',
                                                             background: bloqueada
-                                                                ? '#000' // Negro para bloqueadas
+                                                                ? '#000'
                                                                 : seleccionada
                                                                 ? '#FF9933'
                                                                 : '#181818',
-                                                            color: '#fff', // Siempre blanco
+                                                            color: '#fff',
                                                             border: seleccionada
                                                                 ? '2px solid #FF9903'
                                                                 : '1px solid #444',
                                                             boxShadow: seleccionada
                                                                 ? '0 0 8px 2px #FF990088'
                                                                 : undefined,
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            justifyContent: 'center',
+                                                            flexDirection: 'column',
+                                                            fontWeight: 'bold',
+                                                            fontSize: 14,
+                                                            position: 'relative',
+                                                            transition: 'background 0.2s, border 0.2s',
+                                                            padding: 0,
                                                         }}
+                                                        title={`Mesa ${mesa.id}`}
                                                     >
-                                                        Mesa {mesa.id}
+                                                        {/* Mesa icon (SVG) */} 
+                                                        <svg width="32" height="32" viewBox="0 0 32 32" style={{ marginBottom: 2 }}>
+                                                            {/* Ventana para mesas impares */}
+                                                            {mesa.id % 2 === 1 && (
+                                                                <rect x="0" y="0" width="4" height="32" fill="#4FC3F7" rx="2" />
+                                                            )}
+                                                            {/* Pasadizo para mesas pares */}
+                                                            {mesa.id % 2 === 0 && (
+                                                                <rect x="28" y="0" width="4" height="32" fill="#A1887F" rx="2" />
+                                                            )}
+                                                            <ellipse
+                                                                cx="16"
+                                                                cy="16"
+                                                                rx="13"
+                                                                ry="7"
+                                                                fill={bloqueada ? "#333" : seleccionada ? "#FFD580" : "#fff"}
+                                                                stroke={seleccionada ? "#FF9903" : "#888"}
+                                                                strokeWidth="2"
+                                                            />
+                                                            {/* Patas de la mesa */}
+                                                            <rect x="8" y="23" width="2" height="6" fill="#888" rx="1"/>
+                                                            <rect x="22" y="23" width="2" height="6" fill="#888" rx="1"/>
+                                                        </svg>
+                                                        <span style={{
+                                                            fontSize: 12,
+                                                            color: bloqueada ? "#888" : "#fff",
+                                                            fontWeight: seleccionada ? "bold" : "normal"
+                                                        }}>
+                                                            {mesa.id}
+                                                        </span>
                                                     </button>
                                                 </div>
                                             );
                                         })}
+                                </div>
+                                {/* Leyenda de iconos */}
+                                <div className="d-flex align-items-center mt-3" style={{ color: '#fff', fontSize: 14 }}>
+                                    <div className="d-flex align-items-center me-4">
+                                        <svg width="24" height="24" viewBox="0 0 32 32" style={{ marginRight: 6 }}>
+                                            <rect x="0" y="0" width="4" height="24" fill="#4FC3F7" rx="2" />
+                                        </svg>
+                                        <span>Ventana</span>
+                                    </div>
+                                    <div className="d-flex align-items-center">
+                                        <svg width="24" height="24" viewBox="0 0 32 32" style={{ marginRight: 6 }}>
+                                            <rect x="20" y="0" width="4" height="24" fill="#A1887F" rx="2" />
+                                        </svg>
+                                        <span>Pasadizo</span>
+                                    </div>
                                 </div>
                             </div>
 

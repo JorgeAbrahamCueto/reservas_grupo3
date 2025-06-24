@@ -1,29 +1,61 @@
 import React from 'react';
+import FlipCard from './FlipCard';
+
 //import { Navegacion } from '../components/Navegacion'; 
 
 export const Inicio = () => {
   return (
     // Contenedor principal con la imagen de fondo
     <div className="hero-section d-flex flex-column">
-      
-      {/* NAVEGACION FUE ELIMINADA DE AQUÍ */}
+      {/* Ejemplo de uso de estado en React */}
+      {/* Puedes agregar hooks o lógica aquí si lo necesitas */}
 
       {/* Contenido principal de la página */}
-        <main className="container text-white d-flex flex-column justify-content-center align-items-center flex-grow-1 text-center">
-          
-          <h1 className="display-2 fw-bold hero-heading">
-            Pollos y Parrilladas
-          </h1>
-          
-          <a href="/reservas" className="btn btn-reserve rounded-pill mt-4">
-            Reserva ya 
-          </a>
-
-        </main>
-
-        {/* Créditos de la imagen */}
+      <main 
+        className="container text-white d-flex flex-column justify-content-center align-items-center flex-grow-1 text-center"
+        style={{
+          minHeight: '80vh',
+          background: 'linear-gradient(135deg, #000 60%, #b71c1c 100%)',
+          borderRadius: '1rem',
+          boxShadow: '0 4px 24px rgba(0,0,0,0.4)',
+        }}
+      >
+        <h1 className="display-2 fw-bold hero-heading">
+          Pollos y Parrilladas
+        </h1>
+        {/* Galería dinámica de tarjetas interactivas */}
+        <div className="d-flex flex-wrap justify-content-center gap-3 my-4">
+          {[
+            {
+              src: "img/1pollo_a_la_brasa.jpg",
+              alt: "Pollo a las brasas",
+              text: "Delicioso Pollo a las Brasas, jugoso y dorado."
+            },
+            {
+              src: "img/parrilla_familiar.jpg",
+              alt: "Parrilla",
+              text: "Parrilla familiar, ideal para compartir en grupo."
+            },
+            {
+              src: "img/Alitas-BBQ.jpg",
+              alt: "Alitas BBQ",
+              text: "Alitas BBQ, sabor ahumado y salsa especial."
+            }
+          ].map((item, idx) => (
+            <FlipCard
+              key={idx}
+              src={item.src}
+              alt={item.alt}
+              text={item.text}
+            />
+          ))}
+        </div>
+        <a href="/reservas" className="btn btn-reserve rounded-pill mt-4">
+          Reserva ya 
+        </a>
+      </main>
       <div className="position-absolute bottom-0 end-0 p-3 text-white-50">
-        Grupo 3 - Proyecto Parcial
+        Grupo 3 - Proyecto Parcial - Anthony Ariza, Cindy Alcala, Jorge Cueto
       </div>
 
     </div>
