@@ -292,27 +292,52 @@ export const Reservas = () => {
                                 </div>
                             </div>
 
-                            <button 
-                                className="btn btn-primary"
-                                disabled={!fecha || !hora || seleccionadas.length === 0 || advertencia}
-                                onClick={handleContinuar}
-                                style={{
-                                    background: (!fecha || !hora || seleccionadas.length === 0 || advertencia)
-                                        ? '#222'
-                                        : '#FF9903',
-                                    border: '1px solid #444',
-                                    borderRadius: '32px',
-                                    color: '#fff',
-                                    fontWeight: 'bold',
-                                    padding: '12px 32px',
-                                    transition: 'background 0.2s, color 0.2s',
-                                    boxShadow: (!fecha || !hora || seleccionadas.length === 0 || advertencia)
-                                        ? undefined
-                                        : '0 0 12px 2px #FF990088'
-                                }}
-                            >
-                                CONTINUAR 
-                            </button>
+                            <div className="d-flex align-items-center">
+                                <button 
+                                    className="btn btn-primary"
+                                    disabled={!fecha || !hora || seleccionadas.length === 0 || advertencia}
+                                    onClick={handleContinuar}
+                                    style={{
+                                        background: (!fecha || !hora || seleccionadas.length === 0 || advertencia)
+                                            ? '#222'
+                                            : '#FF9903',
+                                        border: '1px solid #444',
+                                        borderRadius: '32px',
+                                        color: '#fff',
+                                        fontWeight: 'bold',
+                                        padding: '12px 32px',
+                                        transition: 'background 0.2s, color 0.2s',
+                                        boxShadow: (!fecha || !hora || seleccionadas.length === 0 || advertencia)
+                                            ? undefined
+                                            : '0 0 12px 2px #FF990088'
+                                    }}
+                                >
+                                    CONTINUAR 
+                                </button>
+                                <button
+                                    className="btn btn-secondary ms-3"
+                                    type="button"
+                                    onClick={() => {
+                                        setFecha('');
+                                        setHora('');
+                                        setPersonas('1');
+                                        setPiso('1');
+                                        setSeleccionadas([]);
+                                        setAdvertencia('');
+                                    }}
+                                    style={{
+                                        background: '#444',
+                                        border: '1px solid #666',
+                                        borderRadius: '32px',
+                                        color: '#fff',
+                                        fontWeight: 'bold',
+                                        padding: '12px 32px',
+                                        marginLeft: '12px'
+                                    }}
+                                >
+                                    Limpiar
+                                </button>
+                            </div>
                             <div className="mt-4" style={{ color: '#fff' }}>
                                 <div>
                                     <strong>Dirección:</strong> Jr, Av. Rivera Navarrete 2605
@@ -452,7 +477,14 @@ export const Reservas = () => {
                                 onClick={handleEnviarReserva}
                                 style={{ background: '#222', border: '1px solid #444' }}
                             >
-                                Enviar Reserva
+                                Enviar Reserva 
+                            </button>
+                            <button
+                                className="btn btn-secondary ms-2"
+                                onClick={() => setMostrarFormulario(false)}
+                                style={{ background: '#444', border: '1px solid #666', color: '#fff' }}
+                            >
+                                Cancelar
                             </button>
                         </div>
                     )}
