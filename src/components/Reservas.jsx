@@ -1,6 +1,252 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 //import './ReservaCliente.css';
+// Contexto para reservas
 
+
+
+// Selector de mesas
+function SelectorMesas({ mesas, piso, seleccionadas, mesasBloqueadas, onSeleccionMesa, fecha, hora, advertencia }) {
+    return (
+        <div className="row">
+            {mesas
+                .filter((mesa) => mesa.piso === piso)
+                .map((mesa) => {
+                    const bloqueada = mesasBloqueadas.includes(mesa.id);
+                    const seleccionada = seleccionadas.includes(mesa.id);
+                    const estadoMesa = seleccionada
+                        ? 'mesa-seleccionada'
+                        : bloqueada
+                        ? 'mesa-reservada'
+                        : 'mesa-disponible';
+
+                    return (
+                        <div className="col-2 mb-3 d-flex justify-content-center" key={mesa.id}>
+                            <button
+                                className={`mesa-icon-btn ${estadoMesa}`}
+                                disabled={bloqueada || !fecha || !hora || advertencia}
+                                onClick={() => onSeleccionMesa(mesa.id)}
+                                style={{
+                                    width: 56,
+                                    height: 56,
+                                    borderRadius: '50%',
+                                    background: bloqueada
+                                        ? '#000'
+                                        : seleccionada
+                                        ? '#FF9933'
+                                        : '#181818',
+                                    color: '#fff',
+                                    border: seleccionada
+                                        ? '2px solid #FF9903'
+                                        : '1px solid #444',
+                                    boxShadow: seleccionada
+                                        ? '0 0 8px 2px #FF990088'
+                                        : undefined,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    flexDirection: 'column',
+                                    fontWeight: 'bold',
+                                    fontSize: 14,
+                                    position: 'relative',
+                                    transition: 'background 0.2s, border 0.2s',
+                                    padding: 0,
+                                }}
+                                title={`Mesa ${mesa.id}`}
+                            >
+                                <svg width="32" height="32" viewBox="0 0 32 32" style={{ marginBottom: 2 }}>
+                                    {mesa.id % 2 === 1 && (
+                                        <rect x="0" y="0" width="4" height="32" fill="#4FC3F7" rx="2" />
+                                    )}
+                                    {mesa.id % 2 === 0 && (
+                                        <rect x="28" y="0" width="4" height="32" fill="#A1887F" rx="2" />
+                                    )}
+                                    <ellipse
+                                        cx="16"
+                                        cy="16"
+                                        rx="13"
+                                        ry="7"
+                                        fill={bloqueada ? "#333" : seleccionada ? "#FFD580" : "#fff"}
+                                        stroke={seleccionada ? "#FF9903" : "#888"}
+                                        strokeWidth="2"
+                                    />
+                                    <rect x="8" y="23" width="2" height="6" fill="#888" rx="1"/>
+                                    <rect x="22" y="23" width="2" height="6" fill="#888" rx="1"/>
+                                </svg>
+                                <span style={{
+                                    fontSize: 12,
+                                    color: bloqueada ? "#888" : "#fff",
+                                    fontWeight: seleccionada ? "bold" : "normal"
+                                }}>
+                                    {mesa.id}
+                                </span>
+                            </button>
+                        </div>
+                    );
+                })}
+        </div>
+    );
+}
+SelectorMesas.propTypes = {
+    mesas: PropTypes.array.isRequired,
+    piso: PropTypes.string.isRequired,
+    seleccionadas: PropTypes.array.isRequired,
+    mesasBloqueadas: PropTypes.array.isRequired,
+    onSeleccionMesa: PropTypes.func.isRequired,
+    fecha: PropTypes.string,
+    hora: PropTypes.string,
+    advertencia: PropTypes.string
+};
+
+// Popup de confirmación
+function PopupConfirmacion({ fecha, hora, personas, piso, seleccionadas, onConfirmar, onCancelar }) {
+    return (
+        <div
+            className="popup-overlay"
+            style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: '100vw',
+                height: '100vh',
+                background: 'rgba(0,0,0,0.7)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 9999,
+            }}
+        >
+            <div
+                className="popup-content"
+                style={{
+                    background: '#222',
+                    color: '#fff',
+                    borderRadius: '12px',
+                    padding: '32px',
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+                    minWidth: '320px',
+                    maxWidth: '90vw',
+                }}
+            >
+                <h4>Confirmación de Reserva</h4>
+                <p><strong>Fecha:</strong> {fecha}</p>
+                <p><strong>Hora:</strong> {hora}</p>
+                <p><strong>Personas:</strong> {personas}</p>
+                <p><strong>Piso:</strong> {piso}</p>
+                <p>
+                    <strong>Mesas seleccionadas:</strong>{" "}
+                    {seleccionadas.join(", ")}
+                </p>
+                <p className="text-warning">
+                    ⚠ Tolerancia máxima de <strong>15 minutos</strong> después de la hora indicada.
+                </p>
+                <button className="btn btn-success me-2" onClick={onConfirmar}>
+                    Confirmar
+                </button>
+                <button className="btn btn-secondary" onClick={onCancelar}>
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    );
+}
+PopupConfirmacion.propTypes = {
+    fecha: PropTypes.string.isRequired,
+    hora: PropTypes.string.isRequired,
+    personas: PropTypes.string.isRequired,
+    piso: PropTypes.string.isRequired,
+    seleccionadas: PropTypes.array.isRequired,
+    onConfirmar: PropTypes.func.isRequired,
+    onCancelar: PropTypes.func.isRequired
+};
+
+// Formulario de cliente
+function FormularioCliente({ cliente, onChange, onEnviar, onCancelar }) {
+    return (
+        <div className="mt-4">
+            <h4 style={{ color: '#fff' }}>Datos del Cliente</h4>
+            <div className="row mb-3">
+                <div className="col-md-6">
+                    <label style={{ color: '#fff' }}>Nombre</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        name="nombre"
+                        value={cliente.nombre}
+                        onChange={onChange}
+                        style={{ background: '#222', color: '#fff', border: '1px solid #444' }}
+                    />
+                </div>
+                <div className="col-md-6">
+                    <label style={{ color: '#fff' }}>DNI</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        name="dni"
+                        value={cliente.dni}
+                        onChange={onChange}
+                        style={{ background: '#222', color: '#fff', border: '1px solid #444' }}
+                    />
+                </div>
+            </div>
+            <div className="row mb-3">
+                <div className="col-md-6">
+                    <label style={{ color: '#fff' }}>Email</label>
+                    <input
+                        type="email"
+                        className="form-control"
+                        name="email"
+                        value={cliente.email}
+                        onChange={onChange}
+                        style={{ background: '#222', color: '#fff', border: '1px solid #444' }}
+                    />
+                </div>
+                <div className="col-md-6">
+                    <label style={{ color: '#fff' }}>Teléfono</label>
+                    <input
+                        type="tel"
+                        className="form-control"
+                        name="telefono"
+                        value={cliente.telefono}
+                        onChange={onChange}
+                        style={{ background: '#222', color: '#fff', border: '1px solid #444' }}
+                    />
+                </div>
+            </div>
+            <div className="mb-3">
+                <label style={{ color: '#fff' }}>Requerimientos adicionales</label>
+                <textarea
+                    className="form-control"
+                    name="requerimientos"
+                    rows="3"
+                    value={cliente.requerimientos}
+                    onChange={onChange}
+                    style={{ background: '#222', color: '#fff', border: '1px solid #444' }}
+                />
+            </div>
+            <button
+                className="btn btn-primary"
+                onClick={onEnviar}
+                style={{ background: '#222', border: '1px solid #444' }}
+            >
+                Enviar Reserva 
+            </button>
+            <button
+                className="btn btn-secondary ms-2"
+                onClick={onCancelar}
+                style={{ background: '#444', border: '1px solid #666', color: '#fff' }}
+            >
+                Cancelar
+            </button>
+        </div>
+    );
+}
+FormularioCliente.propTypes = {
+    cliente: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onEnviar: PropTypes.func.isRequired,
+    onCancelar: PropTypes.func.isRequired
+};
 export const Reservas = () => {
     const [fecha, setFecha] = React.useState('');
         const [hora, setHora] = React.useState('');
