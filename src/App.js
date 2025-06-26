@@ -7,6 +7,9 @@ import { Carta } from './components/Carta';
 import { Navegacion } from './components/Navegacion';
 import { Reservas } from './components/Reservas';
 import { ReservaCliente } from './components/ReservaCliente';
+import { Mantemiento } from './components/Mantemiento';
+import { Login } from './components/Login';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
@@ -24,7 +27,9 @@ export const App = () => {
 	  <Route path="/contactos" element={<Contactos></Contactos>} />
 	  <Route path="/carta" element={<Carta></Carta>} />
 	  <Route path="/reservas" element={<Reservas></Reservas>} />
-	  <Route path="/reservasclientes" element={<ReservaCliente></ReservaCliente>} />
+	  <Route path="/reservascliente" element={<ReservaCliente></ReservaCliente>} />
+	  <Route path="/mantemiento" element={<Mantemiento></Mantemiento>} />
+	  <Route path="/login" element={<Login></Login>} />
 			</Routes>
 		
 		 </Router>

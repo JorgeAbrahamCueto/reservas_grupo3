@@ -61,9 +61,8 @@ export const Navegacion = () => {
               <li className="nav-item">
                 <NavLink className="nav-link" to="/reservas" onClick={handleNavLinkClick}>Reservas</NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/reservasclientes" onClick={handleNavLinkClick}>ReservasCliente</NavLink>
-              </li>
+             
+              
             </ul>
           </div>
         </div>

@@ -5,8 +5,14 @@ import FlipCard from './FlipCard';
 
 export const Inicio = () => {
   return (
-    // Contenedor principal con la imagen de fondo
-    <div className="hero-section d-flex flex-column">
+    // Contenedor principal con la imagen de fondo y gradiente
+    <div
+      className="hero-section d-flex flex-column"
+      style={{
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #000000 0%, #b71c1c 100%)',
+      }}
+    >
       {/* Ejemplo de uso de estado en React */}
       {/* Puedes agregar hooks o lógica aquí si lo necesitas */}
 
@@ -54,10 +60,14 @@ export const Inicio = () => {
           Reserva ya 
         </a>
       </main>
-      <div className="position-absolute bottom-0 end-0 p-3 text-white-50">
-        Grupo 3 - Proyecto Parcial - Anthony Ariza, Cindy Alcala, Jorge Cueto
+      <div className="position-absolute bottom-0 end-0 p-3 text-white-50 d-flex flex-column align-items-end">
+        <span>
+          Grupo 3 - Proyecto Parcial - Anthony Ariza, Cindy Alcala, Jorge Cueto
+        </span>
+        <a href="/login" className="text-white-50 mt-2" style={{ textDecoration: 'underline', fontWeight: 'bold' }}>
+          Portal del Administrador
+        </a>
       </div>
-
     </div>
   );
 };
