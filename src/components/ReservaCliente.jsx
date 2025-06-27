@@ -4,6 +4,19 @@ import { useNavigate } from 'react-router-dom'; // ✅ Importamos useNavigate
 export const ReservaCliente = () => {
   const navigate = useNavigate(); // ✅ Para redireccionar
 
+      // Oculta la barra de menú
+      React.useEffect(() => {
+        const menu = document.querySelector('nav, .navbar, #menu, header');
+        if (menu) {
+          menu.style.display = 'none';
+        }
+        return () => {
+          if (menu) {
+            menu.style.display = '';
+          }
+        };
+      }, []);
+
   const reservas = []; // A futuro, puedes cargar desde localStorage o una API
 
   return (
@@ -44,6 +57,8 @@ export const ReservaCliente = () => {
             </tbody>
           </table>
         </div>
+
+        
 
         {/* ✅ Botón para volver al menú principal */}
         <div className="text-center mt-4">

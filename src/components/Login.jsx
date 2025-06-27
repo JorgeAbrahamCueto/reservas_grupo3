@@ -17,6 +17,19 @@ export const Login = () => {
     localStorage.setItem('users', JSON.stringify(users));
   }, [users]);
 
+  // Oculta la barra de menú
+  React.useEffect(() => {
+    const menu = document.querySelector('nav, .navbar, #menu, header');
+    if (menu) {
+      menu.style.display = 'none';
+    }
+    return () => {
+      if (menu) {
+        menu.style.display = '';
+      }
+    };
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isRegistering) {
@@ -132,6 +145,12 @@ export const Login = () => {
         </form>
         <button onClick={() => setIsRegistering(!isRegistering)} style={{ marginTop: 10 }}>
           {isRegistering ? '¿Ya tienes cuenta? Inicia sesión' : '¿Nuevo usuario? Regístrate'}
+        </button>
+        <button
+          onClick={() => window.location.href = '/'}
+          style={{ marginTop: 10, background: '#eee', color: '#b71c1c', fontWeight: 'bold', width: '100%' }}
+        >
+          Salir
         </button>
       </div>
     </div>
