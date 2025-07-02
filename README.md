@@ -92,4 +92,4 @@ Verifica que todas las rutas estén correctamente definidas en src/App.js
 -     Haz push a la rama (git push origin feature/nueva-funcionalidad)
 -     Abre un Pull Request
 ## Licencia
-Este proyecto está bajo la licencia MIT. Consulta el archivo LICENSE para más detalles.
+Este proyecto está bajo la licencia MIT. Consulta el archivo LICENSE para más detalles
