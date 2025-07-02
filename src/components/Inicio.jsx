@@ -14,7 +14,7 @@ export const Inicio = () => {
       }}
     >
       {/* Ejemplo de uso de estado en React */}
-      {/* Puedes agregar hooks o lógica aquí si lo necesitas */}
+      {/*  */}
 
       {/* Contenido principal de la página */}
       <main 
