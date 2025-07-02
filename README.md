@@ -8,7 +8,7 @@ Antes de comenzar, asegúrate de tener instalado:
 Sigue estos pasos para configurar el proyecto:
 ### 1.	Clona el repositorio:
 git clone https://github.com/JorgeAbrahamCueto/reservas_grupo3
-cd tu-repositorio.
+
 ### 2.-Instala las dependencias:
 npm install
 ## Configuración del entorno
