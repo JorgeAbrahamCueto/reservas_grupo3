@@ -14,7 +14,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
  // Bootstrap
-import './styles/style.css'; // Tus estilos personalizados
+import './styles/style.css'; // estilos personalizados
 
 export const App = () => {
   return (
