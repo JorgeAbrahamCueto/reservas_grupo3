@@ -128,7 +128,7 @@ export const Mantemiento = () => {
     textAlign: 'center',
   };
 
-  // Responsive: use a media query to adjust layout for mobile
+  // Responsive
   const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
   React.useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
