@@ -30,68 +30,76 @@ export const Inicio = () => {
   }, [images.length]);
 
   return (
-    // Contenedor principal con la imagen de fondo y gradiente
-    <div
-      className="hero-section d-flex flex-column"
-      style={{
-        minHeight: '100vh',
-        background: 'linear-gradient(135deg, #000000 0%, #b71c1c 100%)',
-      }}
-    >
-      {/* Ejemplo de uso de estado en React */}
-      {/* Puedes agregar hooks o lógica aquí si lo necesitas */}
-
-      {/* Contenido principal de la página */}
-      <main 
-        className="container text-white d-flex flex-column justify-content-center align-items-center flex-grow-1 text-center"
-        style={{
-          minHeight: '80vh',
-          background: 'linear-gradient(135deg, #000 60%, #b71c1c 100%)',
-          borderRadius: '1rem',
-          boxShadow: '0 4px 24px rgba(0,0,0,0.4)',
-        }}
-      >
-        <h1 className="display-2 fw-bold hero-heading">
-          Pollos y Parrilladas
-        </h1>
-        {/* Galería dinámica de tarjetas interactivas */}
-        <div className="d-flex flex-wrap justify-content-center gap-3 my-4">
-          {[
-            {
-              src: "img/1pollo_a_la_brasa.jpg",
-              alt: "Pollo a las brasas",
-              text: "Delicioso Pollo a las Brasas, jugoso y dorado."
-            },
-            {
-              src: "img/parrilla_familiar.jpg",
-              alt: "Parrilla",
-              text: "Parrilla familiar, ideal para compartir en grupo."
-            },
-            {
-              src: "img/Alitas-BBQ.jpg",
-              alt: "Alitas BBQ",
-              text: "Alitas BBQ, sabor ahumado y salsa especial."
-            }
-          ].map((item, idx) => (
-            <FlipCard
-              key={idx}
-              src={item.src}
-              alt={item.alt}
-              text={item.text}
-            />
-          ))}
-        </div>
-        <a href="/reservas" className="btn btn-reserve rounded-pill mt-4">
-          Reserva ya 
-        </a>
-      </main>
-      <div className="position-absolute bottom-0 end-0 p-3 text-white-50 d-flex flex-column align-items-end">
-        <span>
-          Grupo 3 - Proyecto Parcial - Anthony Ariza, Cindy Alcala, Jorge Cueto
-        </span>
-        <a href="/login" className="text-white-50 mt-2" style={{ textDecoration: 'underline', fontWeight: 'bold' }}>
-          Portal del Administrador
-        </a>
+    <div style={{
+      position: 'relative',
+      width: '100vw',
+      minHeight: '100vh',
+      height: '100vh',
+      overflow: 'auto',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }}>
+      {images.map((img, idx) => (
+        <Link
+          key={idx}
+          to={img.link}
+          style={{
+            display: idx === current ? 'flex' : 'none',
+            width: '100vw',
+            height: '100vh',
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'absolute',
+            top: 0,
+            left: 0
+          }}
+        >
+          <img
+            src={img.src}
+            alt={img.alt}
+            style={{
+              width: '100vw',
+              height: '100vh',
+              objectFit: 'cover',
+              display: 'block'
+            }}
+          />
+          <div style={{
+            position: 'absolute',
+            bottom: 20,
+            left: 20,
+            color: '#fff',
+            background: 'rgba(0,0,0,0.4)',
+            padding: '10px 20px',
+            borderRadius: '8px'
+          }}>
+            {img.alt}
+          </div>
+        </Link>
+      ))}
+      <div style={{
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+        display: 'flex',
+        gap: '8px'
+      }}>
+        {images.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => setCurrent(idx)}
+            style={{
+              width: 12,
+              height: 12,
+              borderRadius: '50%',
+              border: 'none',
+              background: idx === current ? '#fff' : '#888',
+              opacity: 0.7,
+              cursor: 'pointer'
+            }}
+          />
+        ))}
       </div>
     </div>
   );
