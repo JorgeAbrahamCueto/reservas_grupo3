@@ -1,9 +1,34 @@
-import React from 'react';
-import FlipCard from './FlipCard';
-
-//import { Navegacion } from '../components/Navegacion'; 
+import React from 'react'
+import { Link } from 'react-router-dom';
 
 export const Inicio = () => {
+  const images = [
+    {
+      src: 'img/Combinalo_como_quieras.jpg',
+      //alt: 'Combínalo como quieras',
+      link: '/combinalo'
+    },
+    {
+      src: 'img/Carretillero.jpg',
+      //alt: 'Imagen 2',
+      link: '/Carretillero'
+    },
+    {
+      src: 'img/Happy_Day.jpg',
+      //alt: 'Imagen 3',
+      link: '/Happy'
+    }
+  ];
+
+  const [current, setCurrent] = React.useState(0);
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % images.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [images.length]);
+
   return (
     // Contenedor principal con la imagen de fondo y gradiente
     <div
@@ -14,7 +39,7 @@ export const Inicio = () => {
       }}
     >
       {/* Ejemplo de uso de estado en React */}
-      {/*  */}
+      {/* Puedes agregar hooks o lógica aquí si lo necesitas */}
 
       {/* Contenido principal de la página */}
       <main 
@@ -70,4 +95,4 @@ export const Inicio = () => {
       </div>
     </div>
   );
-};
+}

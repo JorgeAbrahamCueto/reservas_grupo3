@@ -9,6 +9,8 @@ import { Reservas } from './components/Reservas';
 import { ReservaCliente } from './components/ReservaCliente';
 import { Mantemiento } from './components/Mantemiento';
 import { Login } from './components/Login';
+import { Combinalo } from './components/Combinalo';
+import { Carretillero } from './components/Carretillero';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -30,6 +32,9 @@ export const App = () => {
 	  <Route path="/reservascliente" element={<ReservaCliente></ReservaCliente>} />
 	  <Route path="/mantemiento" element={<Mantemiento></Mantemiento>} />
 	  <Route path="/login" element={<Login></Login>} />
+	  <Route path="/combinalo" element={<Combinalo></Combinalo>} />
+	  <Route path="/carretillero" element={<Carretillero></Carretillero>} />
+	  
 			</Routes>
 		
 		 </Router>
